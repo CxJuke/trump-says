@@ -1,4 +1,10 @@
-# trump-says
+# Trump Says
+Get a random trump quote!
+
+* Get a new trump quote each time you press the button
+
+* Remembers history of previous generated quotes
+
 
 ## Project setup
 ```
