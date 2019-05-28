@@ -1,28 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <trump-quote :quote="quote"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TrumpQuote from '@/components/TrumpQuote.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    TrumpQuote
+
+  },
+  data() {
+    return {
+      quote: ''
+    }
+  },
+  mounted() {
+    this.getNewQuote()
+  },
+  methods: {
+    async getNewQuote() {
+            try {
+                const response = await fetch('https://api.whatdoestrumpthink.com/api/v1/quotes/random')
+                const data = await response.json()
+                this.quote = data.message
+            } catch (error) {
+                console.error(error)
+            }
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
