@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <trump-quote :quote="quote"/>
+    <header class="col-12 allign-items-center">
+      <h1>Get a few daily trump quotes!</h1>
+    </header>
+
+    <main class="col-12">
+      <trump-quote :quote="quote" />
+    </main>
   </div>
 </template>
 
@@ -15,7 +21,8 @@ export default {
   },
   data() {
     return {
-      quote: ''
+      quote: '',
+      history: Array
     }
   },
   mounted() {
@@ -36,5 +43,23 @@ export default {
 </script>
 
 <style>
+#app {
+  
+}
 
+header {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 220px;
+  
+}
+
+main {
+  background-color: blueviolet;
+
+}
+
+footer {
+  background-color: brown;
+}
 </style>

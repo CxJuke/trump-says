@@ -1,5 +1,9 @@
 <template>
-    <h1>{{quote}}</h1>
+    <blockquote class="blockquote">
+        <p class="mb-0">{{quote}}</p>
+        <footer class="blockquote-footer"><font-awesome-icon icon="twitter" /> @realDonaldTrump</footer>
+    </blockquote>
+
 </template>
 
 <script>
