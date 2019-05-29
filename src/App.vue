@@ -1,35 +1,52 @@
 <template>
   <div id="app">
     <header class="col-12 allign-items-center">
-      <h1>Get a few daily trump quotes!</h1>
+      <h1>Get a your daily trump quotes!</h1>
     </header>
 
-    <main class="col-12">
+    <div class="col-6 mx-auto quote">
       <trump-quote :quote="quote" />
-    </main>
+    </div>
+    <div class="col-4 mx-auto history">
+      <history-table :history="historyData" @get:newQuote="handleNewQuote"/>
+    </div>
   </div>
 </template>
 
 <script>
 import TrumpQuote from '@/components/TrumpQuote.vue'
+import HistoryTable from '@/components/HistoryTable.vue'
 
 export default {
   name: 'app',
   components: {
-    TrumpQuote
-
+    TrumpQuote,
+    HistoryTable
   },
   data() {
     return {
       quote: '',
-      history: Array
+      historyData: [
+        {
+          id: 1,
+          quote: "quote1"
+        },
+        {
+          id: 2,
+          quote: "quote2"
+        }
+
+      ]
     }
   },
   mounted() {
-    this.getNewQuote()
+    this.getQuote()
   },
   methods: {
-    async getNewQuote() {
+    /**
+     * async method gets a new trump quote from api
+     */
+    async getQuote() {
             try {
                 const response = await fetch('https://api.whatdoestrumpthink.com/api/v1/quotes/random')
                 const data = await response.json()
@@ -37,7 +54,12 @@ export default {
             } catch (error) {
                 console.error(error)
             }
+    },
+    handleNewQuote() {
+      console.log('getting new quote')
     }
+
+
   }
 }
 </script>
@@ -49,17 +71,18 @@ export default {
 
 header {
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 220px;
+  margin-top: 5vh;
+  margin-bottom: 25vh;
   
 }
-
-main {
-  background-color: blueviolet;
+.quote {
 
 }
 
-footer {
-  background-color: brown;
+.history {
+  margin-top: 25vh;
 }
+
+
+
 </style>
