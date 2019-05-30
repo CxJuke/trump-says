@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         handleNewQuoteRequest() {
-            this.$emit('get:newQuote')
+            this.$emit('get:newQuote', this.quote)
         }
     }
 }

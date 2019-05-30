@@ -4,11 +4,11 @@
       <h1>Get a your daily trump quotes!</h1>
     </header>
 
-    <div class="col-6 mx-auto quote">
-      <trump-quote :quote="quote" />
+    <div class="col-md-8 col-sm-10 col-lg-6 mx-auto quote">
+      <trump-quote :quote="quote" @get:newQuote="handleNewQuote"/>
     </div>
-    <div class="col-4 mx-auto history">
-      <history-table :history="historyData" @get:newQuote="handleNewQuote"/>
+    <div class="col-md-6 col-sm-8 mx-auto history">
+      <history-table :historyData="historyData"/>
     </div>
   </div>
 </template>
@@ -26,17 +26,7 @@ export default {
   data() {
     return {
       quote: '',
-      historyData: [
-        {
-          id: 1,
-          quote: "quote1"
-        },
-        {
-          id: 2,
-          quote: "quote2"
-        }
-
-      ]
+      historyData: [],
     }
   },
   mounted() {
@@ -55,8 +45,20 @@ export default {
                 console.error(error)
             }
     },
-    handleNewQuote() {
-      console.log('getting new quote')
+    /**
+     * Adds a new quote to the history
+     */
+    handleNewQuote(oldQuote) {
+      const id = this.historyData.length + 1;
+      const newHistoryEntry = {
+        id: id,
+        quote: oldQuote,
+      }
+      
+
+      this.historyData = [newHistoryEntry, ...this.historyData]
+
+      this.getQuote();
     }
 
 
@@ -76,6 +78,7 @@ header {
   
 }
 .quote {
+  min-height: 40vh;
 
 }
 
@@ -83,6 +86,9 @@ header {
   margin-top: 25vh;
 }
 
+#history-table {
+    height: 15vh;
+}
 
 
 </style>

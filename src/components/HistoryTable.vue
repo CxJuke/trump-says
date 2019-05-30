@@ -1,17 +1,21 @@
 <template>
     <div id="history-table">
-        <table class="table">
+        <table class="table" id="table-header">
             <thead>
                 <tr>
                     <th>Recent Quotes</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="quote in history" :key="quote.id">
-                    <td>{{quote.quote}}</td>
-                </tr>
-            </tbody>
         </table>
+        <div class="overflow-div">
+            <table id="table-data" class="table table-condensed">
+                <tbody>
+                    <tr v-for="quote in historyData" :key="quote.id">
+                        <td>{{quote.quote}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     
 </template>
@@ -20,11 +24,19 @@
 export default {
     name: 'history-table',
     props: {
-        history: Array,
+        historyData: Array,
     },
 }
 </script>
 
-<style>
+<style scoped>
+.table {
+    table-layout: fixed;
+}
+
+.overflow-div {
+    overflow-y: auto;
+}
+
 
 </style>
