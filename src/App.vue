@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header class="col-12 allign-items-center">
-      <h1>Get a your daily trump quotes!</h1>
+      <h1>Get your daily trump quotes!</h1>
     </header>
 
     <div class="col-md-8 col-sm-10 col-lg-6 mx-auto quote">
