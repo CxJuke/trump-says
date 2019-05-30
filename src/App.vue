@@ -27,6 +27,7 @@ export default {
     return {
       quote: '',
       historyData: [],
+      ready: true,
     }
   },
   mounted() {
@@ -37,6 +38,7 @@ export default {
      * async method gets a new trump quote from api
      */
     async getQuote() {
+      this.ready = false
             try {
                 const response = await fetch('https://api.whatdoestrumpthink.com/api/v1/quotes/random')
                 const data = await response.json()
@@ -44,11 +46,20 @@ export default {
             } catch (error) {
                 console.error(error)
             }
+      this.ready = true
     },
     /**
-     * Adds a new quote to the history
+     * Handles a new quote request
      */
     handleNewQuote(oldQuote) {
+      if (this.ready){
+      this.AddQuoteToHistory(oldQuote)
+
+      this.getQuote();
+      }
+    },
+
+    AddQuoteToHistory(oldQuote) {
       const id = this.historyData.length + 1;
       const newHistoryEntry = {
         id: id,
@@ -57,8 +68,6 @@ export default {
       
 
       this.historyData = [newHistoryEntry, ...this.historyData]
-
-      this.getQuote();
     }
 
 
