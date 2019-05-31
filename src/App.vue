@@ -5,7 +5,7 @@
     </header>
 
     <div class="col-md-8 col-sm-10 col-lg-6 mx-auto quote">
-      <trump-quote :quote="quote" @get:newQuote="handleNewQuote"/>
+      <trump-quote :quote="quote" @get:newQuote="handleNewQuote" @get:personalQuote="handleNewPersonalQuote"/>
     </div>
     <div class="col-md-6 col-sm-8 mx-auto history">
       <history-table :historyData="historyData"/>
@@ -31,7 +31,8 @@ export default {
     }
   },
   mounted() {
-    this.getQuote()
+    this.getQuote(),
+    this.getPersonalQuote()
   },
   methods: {
     /**
@@ -48,18 +49,47 @@ export default {
             }
       this.ready = true
     },
+
+    async getPersonalQuote(name) {
+      this.ready = false
+      try {
+        const response = await fetch('https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=' + name)
+        const data = await response.json()
+        this.quote = data.message
+        } catch (error) {
+          console.error(error)
+          }
+      this.ready = true
+      
+    },
     /**
      * Handles a new quote request
      */
     handleNewQuote(oldQuote) {
       if (this.ready){
-      this.AddQuoteToHistory(oldQuote)
+      this.AddQuoteToHistory(oldQuote);
 
       this.getQuote();
       }
     },
 
+    handleNewPersonalQuote(container) {
+      if (this.ready){
+      this.AddQuoteToHistory(container.quote);
+
+      this.getPersonalQuote(container.name);
+      }
+    },
+
+
+
     AddQuoteToHistory(oldQuote) {
+      // when the user makes to many requests prevents duplicate entries.
+      this.historyData.forEach(historyEntry => {
+        if (historyEntry.quote === oldQuote){
+          return
+        }
+      });
       const id = this.historyData.length + 1;
       const newHistoryEntry = {
         id: id,

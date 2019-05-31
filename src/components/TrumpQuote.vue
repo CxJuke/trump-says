@@ -1,23 +1,36 @@
 <template>
     <div class="col-12 quote">
+        <div>
         <blockquote class="blockquote">
             <p class="mb-0">{{quote}}</p>
             <footer class="blockquote-footer quote-name">Donald Trump</footer>
         </blockquote>
-        <button class="btn btn-primary" @click="handleNewQuoteRequest">Get a new quote!</button>
+        </div>
+        <quote-request @get:newQuote="handleNewQuote" @get:personalQuote="handlePersonalQuote"/>
     </div>
 
 </template>
 
 <script>
+import QuoteRequest from '@/components/QuoteRequest.vue'
+
 export default {
     name: 'trump-quote',
     props: {
         quote: '',
     },
+    components: {
+        QuoteRequest
+    },
     methods: {
-        handleNewQuoteRequest() {
+        handleNewQuote() {
             this.$emit('get:newQuote', this.quote)
+        },
+        handlePersonalQuote(nameContainer) {
+            const container = nameContainer;
+            container.quote = this.quote;
+
+            this.$emit('get:personalQuote', container)
         }
     }
 }
