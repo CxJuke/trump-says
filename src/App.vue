@@ -50,6 +50,11 @@ export default {
       this.ready = true
     },
 
+    /**
+     * Gets a personalized quote
+     * @param name name to be used in query
+     * 
+     */
     async getPersonalQuote(name) {
       this.ready = false
       try {
@@ -64,6 +69,7 @@ export default {
     },
     /**
      * Handles a new quote request
+     * @param oldQuote original quote for history saving
      */
     handleNewQuote(oldQuote) {
       if (this.ready){
@@ -73,6 +79,10 @@ export default {
       }
     },
 
+    /**
+     * Handles a new personal quote request
+     * @param container contains the old quote and the query name
+     */
     handleNewPersonalQuote(container) {
       if (this.ready){
       this.AddQuoteToHistory(container.quote);
@@ -81,8 +91,10 @@ export default {
       }
     },
 
-
-
+    /**
+     * Adds given quote to history table
+     * @param oldQuote quote to be added
+     */
     AddQuoteToHistory(oldQuote) {
       // when the user makes to many requests prevents duplicate entries.
       this.historyData.forEach(historyEntry => {
@@ -106,9 +118,6 @@ export default {
 </script>
 
 <style>
-#app {
-  
-}
 
 header {
   text-align: center;
@@ -128,6 +137,5 @@ header {
 #history-table {
     height: 15vh;
 }
-
 
 </style>
