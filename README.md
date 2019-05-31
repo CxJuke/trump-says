@@ -3,11 +3,19 @@ Get a random trump quote!
 
 * Get a new trump quote each time you press the button
 
+![Get quotes](doc/img/home.png)
+
 * Remembers history of previous generated quotes
 
+![History](doc/img/history.png)
 
+* If you enter your name you can even get personalized quotes, directed at you.
+
+![personal quotes](doc/img/personal.png)
 ## Project setup
 ```
+git clone https://github.com/CxJuke/trump-says.git
+cd trump-says
 npm install
 ```
 
@@ -21,10 +29,6 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
-```
-npm run test
-```
 
 ### Lints and fixes files
 ```
