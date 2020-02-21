@@ -1,6 +1,8 @@
 # Trump Says
 Get a random trump quote!
 
+[demo here!](https://jprofijt.github.io/trump-says/)
+
 * Get a new trump quote each time you press the button
 
 ![Get quotes](doc/img/home.png)
